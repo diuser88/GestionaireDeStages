@@ -1,0 +1,12 @@
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\bin\Debug\netcoreapp2.0\GestioanireDesStages.deps.json
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\bin\Debug\netcoreapp2.0\GestioanireDesStages.runtimeconfig.json
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\bin\Debug\netcoreapp2.0\GestioanireDesStages.runtimeconfig.dev.json
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\bin\Debug\netcoreapp2.0\GestioanireDesStages.dll
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\bin\Debug\netcoreapp2.0\GestioanireDesStages.pdb
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\GestioanireDesStages.csprojAssemblyReference.cache
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\GestioanireDesStages.csproj.CoreCompileInputs.cache
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\GestioanireDesStages.AssemblyInfoInputs.cache
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\GestioanireDesStages.AssemblyInfo.cs
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\GestioanireDesStages.dll
+D:\C#PROJECTS\TP_2\GestioanireDesStages\GestioanireDesStages\obj\Debug\netcoreapp2.0\GestioanireDesStages.pdb
