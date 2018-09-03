@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace GestioanireDesStages.Models
         public string Nom { get; set; }
 
         [Required]
+        public string Prenom { get; set; }
+
+        [Required]
         [Phone]
         public string Telephone { get; set; }
 
@@ -22,6 +26,8 @@ namespace GestioanireDesStages.Models
         [EmailAddress]
         public string Courriel { get; set; }
 
+
+        
         public bool Administrateur { get; set; } = false;
 
         public bool Superviseur { get; set; } = false;

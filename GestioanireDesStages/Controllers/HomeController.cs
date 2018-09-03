@@ -5,12 +5,48 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GestioanireDesStages.Models;
+using Microsoft.AspNetCore.Authorization;
+using GestioanireDesStages.Data;
 
 namespace GestioanireDesStages.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+
+
         public IActionResult Index()
+        {
+            if (User?.Identity.IsAuthenticated == true)
+            {
+                bool rolcontrol = false;
+                var lesRoles = _context.Roles;
+
+
+                foreach (var nomRole in lesRoles)
+                {
+                    if (User.IsInRole(nomRole.Name))
+                    {
+                        rolcontrol = true;
+                    }
+                }
+
+                if (!rolcontrol)
+                {
+                    return View(nameof(UtilisateurSansRole));
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult UtilisateurSansRole()
         {
             return View();
         }

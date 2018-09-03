@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using GestioanireDesStages.Models;
 using GestioanireDesStages.Models.AccountViewModels;
 using GestioanireDesStages.Services;
+using System.Security.Principal;
+using GestioanireDesStages.Data;
 
 namespace GestioanireDesStages.Controllers
 {
@@ -26,22 +28,29 @@ namespace GestioanireDesStages.Controllers
         private readonly ILogger _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        private readonly ApplicationDbContext _context;
+
+      
+
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _roleManager = roleManager;
+            _context = context;
         }
 
         [TempData]
         public string ErrorMessage { get; set; }
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -68,6 +77,7 @@ namespace GestioanireDesStages.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                   
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -209,6 +219,14 @@ namespace GestioanireDesStages.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        public IActionResult UtilisateurSansRole()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -235,7 +253,7 @@ namespace GestioanireDesStages.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
+                    
 
                     List<string> lesRoles = new List<string> { "Administrateur", "Superviseur", "Stagiaire" };
 
@@ -250,20 +268,33 @@ namespace GestioanireDesStages.Controllers
 
                     //verifie le premier utilisateur de l'application
                     var res = await _userManager.FindByEmailAsync("admin@maker.com");
+                    Personne aPersone = new Personne();
                     if (res != null)
                     {
                         var rolActuel = await _userManager.IsInRoleAsync(res, "Administrateur");
                         if (!rolActuel)
                         {
                             await _userManager.AddToRoleAsync(res, "Administrateur");
+                            aPersone.Administrateur = true;
                         }
                     }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+
+                    //Creer personne dans la Bd
+                    
+                    aPersone.Nom = model.Nom;
+                    aPersone.Courriel = model.Email;
+                    aPersone.Prenom = model.Prenom;
+                    aPersone.Telephone = "418-888-8888";
+
+                    _context.Personnes.Add(aPersone);
+                    _context.SaveChanges();
+
+                    AddErrors(result);
                     return RedirectToLocal(returnUrl);
                 }
-                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
