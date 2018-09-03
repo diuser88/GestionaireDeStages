@@ -24,15 +24,30 @@
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.Courriel)
             </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Administrateur)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Superviseur)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Stagiaire)
-            </th>
+            @{
+                if (User.IsInRole("Administrateur"))
+                {
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Administrateur)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Superviseur)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Stagiaire)
+                    </th>
+
+                }
+                else
+                {
+
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Stagiaire)
+                    </th>
+                }
+            }
+
+           
             <th></th>
         </tr>
     </thead>
@@ -51,15 +66,31 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Courriel)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Administrateur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Superviseur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stagiaire)
-            </td>
+            @{
+                if (User.IsInRole("Administrateur"))
+                {
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Administrateur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Superviseur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stagiaire)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stagiaire)
+                    </td>
+
+                }
+            }
+
+
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PersonneId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.PersonneId">Details</a> |

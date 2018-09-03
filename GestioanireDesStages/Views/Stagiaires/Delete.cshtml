@@ -18,6 +18,12 @@
             @Html.DisplayFor(model => model.Nom)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Telephone)
         </dt>
         <dd>
@@ -29,24 +35,7 @@
         <dd>
             @Html.DisplayFor(model => model.Courriel)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Administrateur)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Administrateur)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Superviseur)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Superviseur)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Stagiaire)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Stagiaire)
-        </dd>
+
     </dl>
     
     <form asp-action="Delete">

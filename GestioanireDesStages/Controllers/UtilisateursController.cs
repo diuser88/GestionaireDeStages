@@ -25,23 +25,23 @@ namespace GestioanireDesStages.Controllers
         }
 
         // GET: Utilisateurs
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> Index()
         {
-            IQueryable<Personne> userSansRole = null;
             if (User?.Identity.IsAuthenticated == true)
             {
                 if (User.IsInRole("Administrateur"))
                 {
-                    userSansRole = _context.Personnes.Where(p => (!p.Administrateur &&
-                                                                   !p.Superviseur &&
-                                                                   !p.Stagiaire));
+                    return View(await _context.Personnes.ToListAsync());
                 }
             }
-            return View(await userSansRole.ToListAsync());
+            return View(await _context.Personnes.Where(p => !p.Administrateur &&
+                                                            !p.Superviseur &&
+                                                            !p.Stagiaire).ToListAsync());
         }
 
         // GET: Utilisateurs/Details/5
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -60,6 +60,7 @@ namespace GestioanireDesStages.Controllers
         }
 
         // GET: Utilisateurs/Create
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public IActionResult Create()
         {
             return View();
@@ -70,6 +71,7 @@ namespace GestioanireDesStages.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> Create([Bind("PersonneId,Nom,Telephone,Courriel,Administrateur,Superviseur,Stagiaire")] Personne personne)
         {
             if (ModelState.IsValid)
@@ -82,6 +84,7 @@ namespace GestioanireDesStages.Controllers
         }
 
         // GET: Utilisateurs/Edit/5
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,6 +105,7 @@ namespace GestioanireDesStages.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> Edit(int id, [Bind("PersonneId,Nom,Prenom,Telephone,Courriel,Administrateur,Superviseur,Stagiaire")] Personne personne)
         {
             if (id != personne.PersonneId)
@@ -136,6 +140,7 @@ namespace GestioanireDesStages.Controllers
 
 
         //Changement de role avec les checkbox
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task AddRols(Personne p_personne)
         {
             ApplicationUser user = null;
@@ -199,6 +204,7 @@ namespace GestioanireDesStages.Controllers
 
 
         // GET: Utilisateurs/Delete/5
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -219,6 +225,7 @@ namespace GestioanireDesStages.Controllers
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur, Superviseur")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var personne = await _context.Personnes.SingleOrDefaultAsync(m => m.PersonneId == id);
