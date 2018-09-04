@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using GestioanireDesStages.Models;
 using Microsoft.AspNetCore.Authorization;
 using GestioanireDesStages.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace GestioanireDesStages.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+ 
+
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
@@ -61,6 +64,8 @@ namespace GestioanireDesStages.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
+
+
 
             return View();
         }
