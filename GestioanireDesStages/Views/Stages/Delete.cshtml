@@ -1,0 +1,51 @@
+﻿@model GestioanireDesStages.Models.Stage
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Supprimer</h2>
+
+<h3>Êtes-vous sûr de vouloir supprimer?</h3>
+<div>
+    <h4>Stage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Titre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Debut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Debut)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fin)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fin)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stagiaire)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stagiaire)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="StageId" />
+        <input type="submit" value="Supprimer" class="btn btn-default" /> |
+        <a asp-action="Index">Retour à la liste</a>
+    </form>
+</div>

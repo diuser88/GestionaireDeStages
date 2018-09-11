@@ -1,0 +1,82 @@
+﻿@model IEnumerable<GestioanireDesStages.Models.Stage>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h2>Stages</h2>
+
+
+<table class="table table-bordered table-striped text-center">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Titre)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Debut)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Fin)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Commentaire)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Debut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fin)
+                </td>
+                <td>
+                    <textarea style="width:100%" rows=2 cols="35">
+                            @Html.DisplayFor(modelItem => item.Commentaire)
+                    </textarea>
+
+                </td>
+                <td>
+                    @{
+                        if (User.IsInRole("Administrateur") || User.IsInRole("Superviseur"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.StageId">Modifier</a><span> | </span>
+                            <a asp-action="Details" asp-route-id="@item.StageId">Détails</a><span> | </span>
+                            <a asp-action="Delete" asp-route-id="@item.StageId">Supprimer</a>
+
+                        }
+                        else if (User.IsInRole("Stagiaire"))
+                        {
+
+                            <a asp-action="Details" asp-route-id="@item.StageId">Détails</a>
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@{
+    if (User.IsInRole("Administrateur") || User.IsInRole("Superviseur"))
+    {
+
+        <a asp-controller="Stages" asp-action="Create"
+           class="btn btn-lg btn-success" role="button">Nouveau Stage</a>
+
+        <a asp-action="Index" asp-controller="Stagiaires"
+           class="btn btn-info">Retour à la liste</a>
+
+    }
+}

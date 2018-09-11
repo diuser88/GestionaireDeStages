@@ -5,10 +5,10 @@
 }
 
 <h2>tous les utilisateurs</h2>
+<br />
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table table-striped table-bordered text-center">
     <thead class="text-center">
         <tr>
@@ -40,7 +40,6 @@
                 }
                 else
                 {
-
                     <th class="text-center">
                         @Html.DisplayNameFor(model => model.Stagiaire)
                     </th>
@@ -82,9 +81,7 @@
                 }
                 else
                 {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stagiaire)
-                    </td>
+
 
                 }
             }
@@ -92,9 +89,9 @@
 
 
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PersonneId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PersonneId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PersonneId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.PersonneId">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonneId">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonneId">Supprimer</a>
             </td>
         </tr>
 }

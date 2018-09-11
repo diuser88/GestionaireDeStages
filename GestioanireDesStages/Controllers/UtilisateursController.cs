@@ -25,23 +25,14 @@ namespace GestioanireDesStages.Controllers
         }
 
         // GET: Utilisateurs
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Index()
         {
-            if (User?.Identity.IsAuthenticated == true)
-            {
-                if (User.IsInRole("Administrateur"))
-                {
-                    return View(await _context.Personnes.ToListAsync());
-                }
-            }
-            return View(await _context.Personnes.Where(p => !p.Administrateur &&
-                                                            !p.Superviseur &&
-                                                            !p.Stagiaire).ToListAsync());
+            return View(await _context.Personnes.ToListAsync());                                           
         }
 
         // GET: Utilisateurs/Details/5
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -60,7 +51,7 @@ namespace GestioanireDesStages.Controllers
         }
 
         // GET: Utilisateurs/Create
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public IActionResult Create()
         {
             return View();
@@ -71,7 +62,7 @@ namespace GestioanireDesStages.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Create([Bind("PersonneId,Nom,Telephone,Courriel,Administrateur,Superviseur,Stagiaire")] Personne personne)
         {
             if (ModelState.IsValid)
@@ -84,7 +75,7 @@ namespace GestioanireDesStages.Controllers
         }
 
         // GET: Utilisateurs/Edit/5
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -105,7 +96,7 @@ namespace GestioanireDesStages.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Edit(int id, [Bind("PersonneId,Nom,Prenom,Telephone,Courriel,Administrateur,Superviseur,Stagiaire")] Personne personne)
         {
             if (id != personne.PersonneId)
@@ -204,7 +195,7 @@ namespace GestioanireDesStages.Controllers
 
 
         // GET: Utilisateurs/Delete/5
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -225,13 +216,19 @@ namespace GestioanireDesStages.Controllers
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur, Superviseur")]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var personne = await _context.Personnes.SingleOrDefaultAsync(m => m.PersonneId == id);
-            _context.Personnes.Remove(personne);
-            await _context.SaveChangesAsync();
             ApplicationUser user = await _userManager.FindByEmailAsync(personne.Courriel);
+            foreach(var stage in _context.Stages.Where(s => s.Stagiaire == personne.PersonneId))
+            {
+                _context.Stages.Remove(stage);
+            }
+            _context.Personnes.Remove(personne);
+            await _userManager.DeleteAsync(user);
+            
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }

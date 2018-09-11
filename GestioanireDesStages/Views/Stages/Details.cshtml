@@ -1,0 +1,53 @@
+﻿@model GestioanireDesStages.Models.Stage
+
+@{
+    ViewData["Title"] = "Details";
+    
+}
+
+<h2>Détails</h2>
+
+<div>
+    <h4>Stage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Titre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Debut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Debut)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fin)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fin)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+        <dd>
+            @Html.TextAreaFor(model => model.Commentaire, 3, 30, null)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @{
+        if (User.IsInRole("Superviseur") || User.IsInRole("Administrateur"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.StageId" asp-route-PersonneId="@Model.Stagiaire" class="btn btn-default">Modifier</a> <span>|</span>
+            <a asp-action="Index" asp-route-id="@Model.Stagiaire" class="btn btn-info">Retour à la liste</a>
+        }
+        else if (User.IsInRole("Stagiaire"))
+        {
+            <a asp-action="Index" asp-route-id="@Model.Stagiaire" class="btn btn-info">Retour à la liste</a>
+        }
+    }
+</div>

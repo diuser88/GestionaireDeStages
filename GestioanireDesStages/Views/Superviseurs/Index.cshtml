@@ -6,22 +6,21 @@
 
 <h2>Superviseurs</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<br/>
+<br/>
+<table class="table table-bordered text-center table-striped">
     <thead>
         <tr>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.Nom)
                 </th>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.Prenom)
                 </th>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.Telephone)
                 </th>
-                <th>
+                <th class="text-center">
                     @Html.DisplayNameFor(model => model.Courriel)
                 </th>
                
@@ -45,9 +44,9 @@
             </td>
            
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PersonneId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PersonneId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PersonneId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.PersonneId">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonneId">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonneId">Supprimer</a>
             </td>
         </tr>
 }

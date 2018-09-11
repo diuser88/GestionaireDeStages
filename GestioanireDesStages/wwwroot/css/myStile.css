@@ -1,0 +1,39 @@
+body {
+    background-image: url('/images/Sans titre-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table{
+    background-color: lightgray;
+}
+
+th{
+    background-color: lightgreen;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-block {
+    position: absolute;
+    bottom: 150px;
+    right: 420px;
+
+    color: lightblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 
+        'Lucida Grande', 'Lucida Sans Unicode', 
+        Geneva, Verdana, sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.container {
+    position: relative;
+}
+
+.

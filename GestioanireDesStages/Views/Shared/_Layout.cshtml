@@ -7,11 +7,14 @@
 
 
     <environment include="Development">
+
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/myStile.css" />
+
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
@@ -19,7 +22,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top navbar-inverse">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,47 +33,30 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">GestioanireDesStages</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse navbar-inverse">
                 <ul class="nav navbar-nav">
 
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contactes</a></li>
+
                     @{
                         if (User.IsInRole("Administrateur"))
                         {
-                            <li>
-                                <a asp-area="" asp-controller="Utilisateurs"
-                                   asp-action="Index">Utilisateurs</a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Superviseurs"
-                                   asp-action="Index">Superviseurs</a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="Stagiaires"
-                                   asp-action="Index">Stagiaires</a>
-                            </li>
+                            <li><a asp-area="" asp-controller="Utilisateurs" asp-action="Index">Utilisateurs</a></li>
+                            <li><a asp-area="" asp-controller="Superviseurs" asp-action="Index">Superviseurs</a></li>
+                            <li><a asp-area="" asp-controller="Stagiaires" asp-action="Index">Stagiaires</a></li>
+
                         }
-                        if (User.IsInRole("Superviseur"))
+                        else if (User.IsInRole("Superviseur"))
                         {
-                            <li>
-                                <a asp-area="" asp-controller="Stagiaires"
-                                   asp-action="Index">Stagiaires</a>
-                            </li>
-
+                            <li><a asp-area="" asp-controller="Stagiaires" asp-action="Index">Stagiaires</a></li>
                         }
-                        if (User.IsInRole("Stagiaire"))
+                        else if (User.IsInRole("Stagiaire"))
                         {
-                            <li>
-                                <a asp-area="" asp-controller="Stages"
-                                   asp-action="Index">Stages</a>
-                            </li>
-
+                            <li><a asp-area="" asp-controller="Stages" asp-action="Index"
+                                   asp-route-id="null" >Mes Stages</a></li>
                         }
-
                     }
-
 
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
@@ -81,7 +67,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - GestioanireDesStages</p>
+            <p>&copy; 2018 - Serghei Diulgherov</p>
         </footer>
     </div>
 

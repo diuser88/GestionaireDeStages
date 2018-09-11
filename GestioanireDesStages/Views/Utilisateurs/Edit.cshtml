@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Modifier</h2>
 
-<h4>Personne</h4>
+<h4>Utilisateur</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,9 +34,9 @@
                 <span asp-validation-for="Courriel" class="text-danger"></span>
             </div>
 
-            @{
+            @*@{
                 if (User.IsInRole("Administrateur"))
-                {
+                {*@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
@@ -59,30 +59,30 @@
                         </div>
                     </div>
 
-                }
+                @*@*}
                 else
-                {
+                {*@
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <div class="checkbox">
                             <label>
                                 <input asp-for="Stagiaire" /> @Html.DisplayNameFor(model => model.Stagiaire)
                             </label>
                         </div>
-                    </div>
-                }
-            }
+                    </div>*@
+                @*}
+            }*@
 
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Sauvegarder" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {

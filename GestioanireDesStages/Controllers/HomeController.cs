@@ -14,11 +14,17 @@ namespace GestioanireDesStages.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
- 
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ApplicationDbContext context)
+
+        public HomeController(ApplicationDbContext context, 
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
@@ -28,8 +34,8 @@ namespace GestioanireDesStages.Controllers
             if (User?.Identity.IsAuthenticated == true)
             {
                 bool rolcontrol = false;
-                var lesRoles = _context.Roles;
-
+                var lesRoles = _roleManager.Roles;
+                
 
                 foreach (var nomRole in lesRoles)
                 {
@@ -38,6 +44,11 @@ namespace GestioanireDesStages.Controllers
                         rolcontrol = true;
                     }
                 }
+                //if (User.IsInRole("Stagiaire"))
+                //{
+                //    var test = _context.Personnes.FirstOrDefault(p => p.Courriel == User.Identity.Name);
+                //    ViewData["PersonneId"] = test.PersonneId;
+                //}
 
                 if (!rolcontrol)
                 {
@@ -63,7 +74,7 @@ namespace GestioanireDesStages.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "L'adresse";
 
 
 

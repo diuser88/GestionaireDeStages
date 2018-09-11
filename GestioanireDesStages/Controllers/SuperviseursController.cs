@@ -8,16 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using GestioanireDesStages.Data;
 using GestioanireDesStages.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace GestioanireDesStages.Controllers
 {
     public class SuperviseursController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SuperviseursController(ApplicationDbContext context)
+        public SuperviseursController(ApplicationDbContext context, 
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Superviseurs
@@ -149,7 +153,9 @@ namespace GestioanireDesStages.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var personne = await _context.Personnes.SingleOrDefaultAsync(m => m.PersonneId == id);
+            ApplicationUser user = await _userManager.FindByEmailAsync(personne.Courriel);
             _context.Personnes.Remove(personne);
+            await _userManager.DeleteAsync(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

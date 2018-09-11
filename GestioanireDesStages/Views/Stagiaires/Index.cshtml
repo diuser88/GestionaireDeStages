@@ -6,10 +6,7 @@
 
 <h2>Stagiaires</h2>
 
-<p>
-    
-    <a class="btn btn-default" href="Utilisateurs/Index"> Ajouter un utilisateur aux stagiaires </a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -47,9 +44,22 @@
 
 
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PersonneId">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.PersonneId">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.PersonneId">Delete</a>
+                @{
+                    if (User.IsInRole("Administrateur"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.PersonneId">Modifier</a>
+                        <a asp-action="Details" asp-route-id="@item.PersonneId">Détails</a>
+                        <a asp-action="Delete" asp-route-id="@item.PersonneId">Supprimer</a>
+                    }
+                    else if (User.IsInRole("Superviseur"))
+                    {
+                        <a class="btn btn-sm btn-default"asp-action="Details" asp-route-id="@item.PersonneId">Détails</a>
+                        <a class="btn btn-sm btn-default"
+                           asp-action="Index" asp-controller="Stages"
+                           asp-route-id="@item.PersonneId" role="button">Mes Stages</a>
+                    }
+                }
+
 
             </td>
         </tr>

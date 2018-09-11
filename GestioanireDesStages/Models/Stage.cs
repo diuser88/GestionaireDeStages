@@ -19,10 +19,10 @@ namespace GestioanireDesStages.Models
         [DataType(DataType.Date)]
         public DateTime Fin { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        public string Commentaire { get; set; } = "";
 
-        public string Commentaire { get; set; }
 
-
-        public string Stagiaire { get; set; }
+        public int Stagiaire { get; set; }
     }
 }

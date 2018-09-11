@@ -2,41 +2,70 @@
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["Pers"] = Model.PersonneId;
 }
 
-<h2>Détails</h2>
 
-<div>
-    <h4>Stagiaire</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Prenom)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Prenom)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Telephone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Telephone)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Courriel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Courriel)
-        </dd>
-    </dl>
+
+<div class="container">
+    <div class="col-lg-4">
+        <h2 class="text-info">Détails</h2>
+        <h4>Stagiaire</h4>
+        <hr />
+        <dl class="dl-horizontal  bg-danger">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nom)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nom)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Prenom)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telephone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Telephone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Courriel)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Courriel)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dd>
+               
+                <a class="btn btn-warning btn-block"
+                        asp-action="Index" asp-controller="Stages" 
+                        asp-route-id="@Model.PersonneId" role="button">Mes Stages</a>
+            </dd>
+        </dl>
+    </div>
+
+
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.PersonneId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @{
+        if (User.IsInRole("Administrateur"))
+        {
+
+            <a asp-action="Edit" asp-route-id="@Model.PersonneId" class="btn btn-default">Modifier</a>
+            <a asp-action="Index" class="btn btn-info">Retour à la liste</a>
+        }
+        else if (User.IsInRole("Superviseur") || User.IsInRole("Stagiaire"))
+        {
+            <a asp-action="Index" class="btn btn-info">Retour à la liste</a>
+
+        }
+    }
+
+
 </div>
+
+

@@ -1,0 +1,51 @@
+﻿@model GestioanireDesStages.Models.Stage
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Modifier</h2>
+
+<h4>Stage</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="StageId" />
+            <div class="form-group">
+                <label asp-for="Titre" class="control-label"></label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Debut" class="control-label"></label>
+                <input asp-for="Debut" class="form-control" />
+                <span asp-validation-for="Debut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fin" class="control-label"></label>
+                <input asp-for="Fin" class="form-control" />
+                <span asp-validation-for="Fin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Commentaire" class="control-label"></label>
+                <textarea asp-for="Commentaire" class="form-control"></textarea>
+                <span asp-validation-for="Commentaire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stagiaire" class="control-label"></label>
+                <input asp-for="Stagiaire" class="form-control hidden" />
+                <span asp-validation-for="Stagiaire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sauvegarder" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>
+
